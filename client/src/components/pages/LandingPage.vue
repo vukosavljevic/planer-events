@@ -1,9 +1,9 @@
 <template>
     <base-card>
         <div>
-            <h2>Events that I attended this week!</h2>
+            <h2>Events that I attended this year!</h2>
             <hr>
-            <event-card v-for="event in events" :key="event.id" :title="event.title" :description="event.description" :date="event.date">
+            <event-card v-for="event in events" :key="event.id" :id="event._id" :title="event.title" :description="event.description" :date="event.date">
             </event-card>
         </div>
     </base-card>
@@ -38,12 +38,16 @@ export default {
 <style scoped>
 div {
     position: relative;
-    text-align: left;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 hr {
     position: absolute;
-    left: 0;
+    left: 25%;
+    top:10%;
     width: 50%;
 }
 </style>

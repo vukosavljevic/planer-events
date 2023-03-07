@@ -4,12 +4,15 @@ const { connectToDb, getDb } = require('./db');
 
 //init app & middleware
 
-const app = express()
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+const cors = require('cors');
+const app = express();
+
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json())
 
 //db connection
@@ -38,8 +41,6 @@ app.get('/events', (req, res) => {
     db.collection('events')
         .find()
         .sort({ author: 1 })
-        .skip(page * eventsPerPage)
-        .limit(eventsPerPage)
         .forEach(event => events.push(event))
         .then(() => {
             res.status(200).json(events)
